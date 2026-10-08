@@ -23,9 +23,9 @@ giải từ một lượt đánh giá, không phải bằng chứng nhân quả.
 Retriever được giữ nguyên nên recall bằng nhau. Chênh lệch precision nhỏ có
 thể đến từ biến động phán xét của LLM evaluator, không có nghĩa V2 dùng một
 retriever khác. Router chỉ trả một generation khi metric relevancy yêu cầu ba;
-RAGAS tiếp tục với một generation và cảnh báo này được giữ trong log.
+RAGAS tiếp tục với một generation.
 
-Báo cáo bắt buộc: `03_ragas_report.json`. Log thật: `03_ragas_evaluation_log.txt`.
+Báo cáo bắt buộc: `03_ragas_report.json`.
 Output đủ 100 QA và điểm từng sample được lưu trong `data/ragas_outputs.json`,
 `data/ragas_v1_samples.json` và `data/ragas_v2_samples.json` để kiểm chứng.
 
