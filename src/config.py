@@ -22,6 +22,12 @@ os.environ["LANGCHAIN_ENDPOINT"]   = os.getenv("LANGCHAIN_ENDPOINT", "https://ap
 # Đổi giá trị PROVIDER trong .env: openai | gemini | anthropic | ollama | openrouter
 PROVIDER = os.getenv("PROVIDER", "openai").lower()
 
+# Embeddings có thể dùng provider của LLM hoặc chạy local độc lập.
+EMBEDDING_PROVIDER    = os.getenv("EMBEDDING_PROVIDER", PROVIDER).lower()
+LOCAL_EMBEDDING_MODEL = os.getenv(
+    "LOCAL_EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2"
+)
+
 # ── OpenAI ────────────────────────────────────────────────────────────────
 OPENAI_API_KEY         = os.getenv("OPENAI_API_KEY", "")
 OPENAI_BASE_URL        = os.getenv("OPENAI_BASE_URL", "")   # để trống nếu dùng OpenAI chính thức
@@ -79,7 +85,11 @@ def validate() -> bool:
         print("   Hãy kiểm tra file .env của bạn (xem .env.example để biết thêm).")
         return False
 
-    print(f"✅ Config OK  |  Provider: {PROVIDER.upper()}  |  Project: {LANGSMITH_PROJECT}")
+    print(
+        f"✅ Config OK  |  Provider: {PROVIDER.upper()}"
+        f"  |  Embeddings: {EMBEDDING_PROVIDER.upper()}"
+        f"  |  Project: {LANGSMITH_PROJECT}"
+    )
     return True
 
 

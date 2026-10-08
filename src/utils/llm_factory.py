@@ -5,7 +5,7 @@ Cách dùng:
     from utils.llm_factory import get_llm, get_embeddings
 
     llm        = get_llm()            # dùng PROVIDER từ .env
-    embeddings = get_embeddings()     # dùng PROVIDER từ .env
+    embeddings = get_embeddings()     # dùng EMBEDDING_PROVIDER từ .env
 
     llm_gemini = get_llm("gemini")    # chỉ định provider cụ thể
 """
@@ -97,13 +97,21 @@ def get_embeddings(provider: str = None):
           Cài đặt: ollama pull nomic-embed-text
 
     Args:
-        provider: "openai" | "gemini" | "anthropic" | "ollama" | "openrouter"
-                  Mặc định: đọc PROVIDER từ .env
+        provider: "local" | "openai" | "gemini" | "anthropic" | "ollama" | "openrouter"
+                  Mặc định: đọc EMBEDDING_PROVIDER từ .env
 
     Returns:
         Embeddings instance sẵn sàng sử dụng
     """
-    provider = (provider or config.PROVIDER).lower()
+    provider = (provider or config.EMBEDDING_PROVIDER).lower()
+
+    if provider == "local":
+        from langchain_huggingface import HuggingFaceEmbeddings
+        return HuggingFaceEmbeddings(
+            model_name=config.LOCAL_EMBEDDING_MODEL,
+            model_kwargs={"device": "cpu"},
+            encode_kwargs={"normalize_embeddings": True},
+        )
 
     if provider in ("openai", "openrouter"):
         from langchain_openai import OpenAIEmbeddings
@@ -141,5 +149,5 @@ def get_embeddings(provider: str = None):
     else:
         raise ValueError(
             f"Provider không hợp lệ: '{provider}'. "
-            "Chọn một trong: openai, gemini, anthropic, ollama, openrouter"
+            "Chọn một trong: local, openai, gemini, anthropic, ollama, openrouter"
         )

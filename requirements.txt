@@ -1,7 +1,7 @@
 # ── LangChain core ────────────────────────────────────────────────
 langchain>=0.3.0
 langchain-core>=0.3.0
-langchain-community>=0.3.0
+langchain-community>=0.3.0,<0.4
 langchain-text-splitters>=0.3.0
 
 # ── LLM Providers (cài tất cả để hỗ trợ đa provider) ─────────────
@@ -9,6 +9,8 @@ langchain-openai>=0.3.0          # OpenAI + OpenRouter
 langchain-anthropic>=0.1.0       # Anthropic Claude
 langchain-google-genai>=1.0.0    # Google Gemini
 langchain-ollama>=0.1.0          # Ollama (local)
+langchain-huggingface>=0.1.0     # Local embeddings
+sentence-transformers>=3.0.0     # all-MiniLM-L6-v2, không cần API key
 
 # ── LangSmith ─────────────────────────────────────────────────────
 langsmith>=0.2.0
